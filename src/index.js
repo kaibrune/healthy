@@ -46,7 +46,7 @@ var getUserPrefsFromUI = function() {
 
 var storeUserPrefs = function() {
 	chrome.storage.sync.set({healthyBrowsingSettings: getUserPrefsFromUI()}, function() {
-		chrome.extension.sendMessage({action: "optionsChanged"});
+		chrome.runtime.sendMessage({action: "optionsChanged"});
 	});
 };
 
@@ -158,5 +158,5 @@ $(document).on('click', playSoundToggleButton, function() {
 $(document).on('click', resetSettingsButton, resetDefaultSettings);
 
 $(document).on('click', testNotificationsButton, function() {
-	chrome.extension.sendMessage({action: "testNotifications"});
+	chrome.runtime.sendMessage({action: "testNotifications"});
 });

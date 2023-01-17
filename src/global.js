@@ -13,7 +13,6 @@ const defaultNotificationValueMultiplier = 60 * 1000; // minutes
 // Other default settings
 const defaultRunning = true;
 const defaultPlaySound = false;
-const notificationSound = new Audio('notification-sound.mp3');
 
 const notificationQueueDelay = 5100; // 2 seconds
 const notificationDispatcherInterval = 5300; // Time adjustment for setInterval()
@@ -170,8 +169,8 @@ var refreshScheduler = function() {
     });
 };
 
-var receiveMessage = function(message, sender, sendResponse) {
-    if (message.action == "optionsChanged") {
+var receiveMessage = chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+    if (request.action == "optionsChanged") {
         refreshScheduler();
     } else if (message.action == "testNotifications") {
         addNotificationToQueue(waterNotification);
@@ -179,7 +178,7 @@ var receiveMessage = function(message, sender, sendResponse) {
         addNotificationToQueue(stretchNotification);
         addNotificationToQueue(postureNotification);
     }
-};
+});
 
 var buildPrefsFromStorage = function(storagePrefs) {
     prefs = storagePrefs.healthyBrowsingSettings;

@@ -1,7 +1,8 @@
-
-//================================================================================
-// Execute code in background
-//================================================================================
+try {
+    importScripts("global.js");
+  } catch (e) {
+    console.error(e);
+  }
 
 setInterval(notificationDispatcher, notificationDispatcherInterval);
 refreshScheduler();
